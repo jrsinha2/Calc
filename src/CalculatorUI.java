@@ -1,3 +1,8 @@
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,6 +17,11 @@ public class CalculatorUI extends javax.swing.JFrame {
     /**
      * Creates new form CalculatorUI
      */
+    static double a=0,b=0,result=0;
+    static int operator = 0;
+    boolean newInput = true;
+    boolean negativeOperand = false;
+    boolean reciprocal = false;
     public CalculatorUI() {
         initComponents();
     }
@@ -56,6 +66,13 @@ public class CalculatorUI extends javax.swing.JFrame {
         jButton5.setText("jButton5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyCalc");
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,13 +85,22 @@ public class CalculatorUI extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTextField2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
+        jTextField2.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jTextField1.setText("jTextField1");
+        jTextField1.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jButton1.setText("<--");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jButton1KeyTyped(evt);
+            }
+        });
 
         jButton2.setText("CE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -91,22 +117,62 @@ public class CalculatorUI extends javax.swing.JFrame {
         });
 
         jButton4.setText("+/-");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("sqrt");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("%");
 
         jButton8.setText("1/x");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("=");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("/");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setText("*");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setText("-");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setText("+");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("3");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
@@ -116,24 +182,74 @@ public class CalculatorUI extends javax.swing.JFrame {
         });
 
         jButton15.setText("6");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         jButton16.setText("9");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jButton17.setText(".");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setText("2");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
 
         jButton19.setText("5");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
 
         jButton20.setText("8");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
 
         jButton21.setText("0");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
 
         jButton22.setText("1");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
 
         jButton23.setText("4");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
 
         jButton24.setText("7");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,21 +369,462 @@ public class CalculatorUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void makeFrameFullSize(JFrame aFrame) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        aFrame.setSize(screenSize.width,screenSize.height);
+    }
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("3");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("3"));
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jTextField1.setText("");
+        newInput = true;
+        negativeOperand = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         jTextField1.setText("");
         jTextField2.setText("");
+        newInput = true;
+        negativeOperand = false;
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("1");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("1"));
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("2");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("2"));
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("4");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("4"));
+    }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("5");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("5"));
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("6");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("6"));
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("7");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("7"));
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("8");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("8"));
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("9");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("9"));
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText("0");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("0"));
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        if(newInput)
+        {   jTextField1.setText(".");
+            newInput = false;
+        }
+        else
+            jTextField1.setText(jTextField1.getText().concat("."));
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        if(operator==0)
+        {   a = Double.parseDouble(jTextField1.getText());
+            
+        }
+        else
+        {   b = Double.parseDouble(jTextField1.getText());
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = 0;
+            }
+            a = result;
+            result = 0;
+            
+        }
+        double number = 0;
+        number = Double.parseDouble(jTextField1.getText());
+        String exp = "(";
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(exp));
+        jTextField2.setText(jTextField2.getText().concat(jTextField1.getText()));
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(")"));
+        jTextField2.setText(jTextField2.getText().concat("+"));
+        operator = 1;
+        newInput = true;
+        negativeOperand = false;
+        jTextField1.setText("");       
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        if(operator==0)
+        {   a = Double.parseDouble(jTextField1.getText());
+            
+        }
+        else
+        {   b = Double.parseDouble(jTextField1.getText());
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = 0;
+            }
+            a = result;
+            result = 0;
+            
+        }
+        double number = 0;
+        number = Double.parseDouble(jTextField1.getText());
+        String exp = "(";
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(exp));
+        jTextField2.setText(jTextField2.getText().concat(jTextField1.getText()));
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(")"));
+        jTextField2.setText(jTextField2.getText().concat("-"));
+        operator = 2;
+        newInput = true;        
+        negativeOperand = false;
+        jTextField1.setText("");
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        if(operator==0)
+        {   a = Double.parseDouble(jTextField1.getText());
+            
+        }
+        else
+        {   b = Double.parseDouble(jTextField1.getText());
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = 0;
+            }
+            a = result;
+            result = 0;
+            
+        }
+        double number = 0;
+        number = Double.parseDouble(jTextField1.getText());
+        String exp = "(";
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(exp));
+        jTextField2.setText(jTextField2.getText().concat(jTextField1.getText()));
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(")"));
+        jTextField2.setText(jTextField2.getText().concat("*"));
+        operator = 3;
+        newInput = true;
+        negativeOperand = false;
+        jTextField1.setText("");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        if(operator==0)
+        {   a = Double.parseDouble(jTextField1.getText());
+            
+        }
+        else
+        {   b = Double.parseDouble(jTextField1.getText());
+            
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = 0;
+            }
+            a = result;
+            result = 0;
+            
+        }
+        double number = 0;
+        number = Double.parseDouble(jTextField1.getText());
+        String exp = "(";
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(exp));
+        jTextField2.setText(jTextField2.getText().concat(jTextField1.getText()));
+        if(number<0)
+            jTextField2.setText(jTextField2.getText().concat(")"));
+        jTextField2.setText(jTextField2.getText().concat("/"));
+        operator = 4;
+        newInput = true;
+        negativeOperand = false;
+        jTextField1.setText("");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        if(!(jTextField1.getText().equals("")))
+        {   b = Double.parseDouble(jTextField1.getText());
+        }
+        switch(operator) {
+            case 1  :   result = a+b;
+                        break;
+            case 2  :   result = a-b;
+                        break;
+            case 3  :   result = a*b;
+                        break;
+            case 4  :   result = a/b;
+                        break;
+            default :   result = 0;
+        }
+        String answer = String.format("%.2f", result);
+        
+        jTextField1.setText(answer);
+        
+        int len = jTextField1.getText().length();
+        int integer = 0;
+        if(Math.ceil(result)==Math.floor(result))
+        {   int index = len-2;
+            for(int i =0;i<len;i++)
+            {
+                if(jTextField1.getText().charAt(i)=='.')
+                {   index = i;
+                    break;
+                }
+            }
+            integer = Integer.parseInt(jTextField1.getText().substring(0, index));
+            jTextField1.setText(String.valueOf(integer));
+            //System.out.println(jTextField1.getText().substring(0, len-2));
+        }
+        a = result;
+        operator = 0;
+        newInput = true;
+        negativeOperand = false;
+        jTextField2.setText("");
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int len = jTextField1.getText().length();
+        if(len>=1)
+            jTextField1.setText(jTextField1.getText().substring(0,len-1));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        double number=0;
+        if(!(jTextField1.getText().equals("")))
+            number = Double.parseDouble(jTextField1.getText());
+        number*=-1;
+        jTextField1.setText(String.valueOf(number));
+        if(number<0)
+           negativeOperand = true;
+            
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if(jTextField1.getText().equals(""))
+        {   operator = 0;
+            newInput = true;
+            negativeOperand = false;
+            jTextField2.setText("1/0");
+            jTextField1.setText("ERROR");
+        }
+        else
+        {   b = Double.parseDouble(jTextField1.getText());
+            b = 1/b;
+            
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = b;
+            }
+            String answer = String.format("%.7f", result);
+            jTextField1.setText(answer);
+
+            int len = jTextField1.getText().length();
+            int integer = 0;
+            if(Math.ceil(result)==Math.floor(result))
+            {   int index = len-2;
+                for(int i =0;i<len;i++)
+                {
+                    if(jTextField1.getText().charAt(i)=='.')
+                    {   index = i;
+                        break;
+                    }
+                }
+                integer = Integer.parseInt(jTextField1.getText().substring(0, index));
+                jTextField1.setText(String.valueOf(integer));
+                //System.out.println(jTextField1.getText().substring(0, len-2));
+            }
+            a = result;
+            operator = 0;
+            newInput = true;
+            negativeOperand = false;
+            jTextField2.setText("");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+        b = Double.parseDouble(jTextField1.getText());
+        if(b<0)
+        {
+            operator = 0;
+            newInput = true;
+            negativeOperand = false;
+            jTextField2.setText("sqrt(");
+            jTextField2.setText(jTextField2.getText().concat(String.valueOf(b)));
+            jTextField2.setText(jTextField2.getText().concat(")"));
+            jTextField1.setText("ERROR");
+        }
+        else
+        {
+            b = Math.sqrt(b);
+
+            switch(operator) {
+                case 1  :   result = a+b;
+                            break;
+                case 2  :   result = a-b;
+                            break;
+                case 3  :   result = a*b;
+                            break;
+                case 4  :   result = a/b;
+                            break;
+                default :   result = b;
+            }
+            String answer = String.format("%.7f", result);
+            jTextField1.setText(answer);
+
+            int len = jTextField1.getText().length();
+            int integer = 0;
+            if(Math.ceil(result)==Math.floor(result))
+            {   int index = len-2;
+                for(int i =0;i<len;i++)
+                {
+                    if(jTextField1.getText().charAt(i)=='.')
+                    {   index = i;
+                        break;
+                    }
+                }
+                integer = Integer.parseInt(jTextField1.getText().substring(0, index));
+                jTextField1.setText(String.valueOf(integer));
+                //System.out.println(jTextField1.getText().substring(0, len-2));
+            }
+            a = result;
+            operator = 0;
+            newInput = true;
+            negativeOperand = false;
+            jTextField2.setText("");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments
